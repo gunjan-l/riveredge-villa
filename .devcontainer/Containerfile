@@ -1,0 +1,30 @@
+FROM docker.io/library/node:22-bookworm-slim
+
+# Install system dependencies needed for Node, git, and build tools
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends \
+        git \
+        curl \
+        ca-certificates \
+        procps \
+        sudo \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ensure node user has passwordless sudo for dev flexibility
+RUN echo "node ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/node \
+    && chmod 0440 /etc/sudoers.d/node
+
+# Set up working directory
+WORKDIR /workspace
+
+# Preserve bash history inside container
+RUN mkdir -p /home/node/.cache /home/node/.npm \
+    && chown -R node:node /home/node
+
+USER node
+
+# Expose default Astro development port
+EXPOSE 4321
+
+CMD ["/bin/bash"]

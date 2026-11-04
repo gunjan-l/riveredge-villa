@@ -1,0 +1,11 @@
+# Local skills & config
+.scratch/
+CLAUDE.md
+
+# Build & dependencies
+node_modules/
+dist/
+.astro/
+.env
+.env.local
+.DS_Store

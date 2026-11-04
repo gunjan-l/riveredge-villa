@@ -1,0 +1,40 @@
+{
+  "name": "Riveredge Villa Dev Container (Podman)",
+  "build": {
+    "dockerfile": "Containerfile",
+    "context": "."
+  },
+  "remoteUser": "node",
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+  "runArgs": [
+    "--userns=keep-id",
+    "--security-opt", "label=disable"
+  ],
+  "containerEnv": {
+    "HOME": "/home/node",
+    "NODE_ENV": "development"
+  },
+  "forwardPorts": [4321],
+  "portsAttributes": {
+    "4321": {
+      "label": "Astro Dev Server",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "extensions": [
+        "astro-build.astro-vscode",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  }
+}
