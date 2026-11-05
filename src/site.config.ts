@@ -81,8 +81,8 @@ export const siteConfig: SiteConfig = {
   url: 'https://riveredgevilla.com',
   airbnbListingUrl: 'https://www.airbnb.co.in/rooms/1745062199910740345',
   contact: {
-    whatsappNumber: '919876543210',
-    displayPhone: '+91 98765 43210',
+    whatsappNumber: '918793720167',
+    displayPhone: '+91 87937 20167',
     email: 'stay@riveredgevilla.com',
     hostName: 'Swaraj',
     airbnbSuperhost: true,
