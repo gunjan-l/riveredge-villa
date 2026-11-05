@@ -46,23 +46,100 @@ const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
       ))}
     </div>
 
+    <!-- Gallery Filter Tabs -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="gallery-filters">
+      <button
+        type="button"
+        data-filter="all"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-900 text-white shadow-sm"
+      >
+        All Photos ({siteConfig.photos.length})
+      </button>
+      <button
+        type="button"
+        data-filter="pool,exterior"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Pool & Outdoors
+      </button>
+      <button
+        type="button"
+        data-filter="bedroom"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Bedrooms (3)
+      </button>
+      <button
+        type="button"
+        data-filter="kitchen"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Kitchenette
+      </button>
+      <button
+        type="button"
+        data-filter="bathroom"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Bathrooms (3)
+      </button>
+    </div>
+
     <!-- Photo Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16" id="gallery-grid">
       {siteConfig.photos.map((photo, index) => (
-        <div class={`relative group overflow-hidden rounded-2xl bg-stone-100 ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+        <div
+          data-category={photo.category}
+          class="gallery-item relative group overflow-hidden rounded-2xl bg-stone-100 shadow-sm"
+        >
           <img
             src={photo.url}
             alt={photo.alt}
-            loading={index === 0 ? 'eager' : 'lazy'}
-            class="w-full h-64 sm:h-80 md:h-full object-cover transition duration-500 group-hover:scale-105"
+            loading={index < 3 ? 'eager' : 'lazy'}
+            class="w-full h-64 sm:h-72 object-cover transition duration-500 group-hover:scale-105"
             onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
-            <span class="text-white text-xs sm:text-sm font-medium">{photo.alt}</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
+            <span class="text-[11px] uppercase tracking-wider font-bold text-emerald-400 mb-0.5">
+              {photo.category}
+            </span>
+            <span class="text-white text-xs sm:text-sm font-medium line-clamp-2">
+              {photo.alt}
+            </span>
           </div>
         </div>
       ))}
     </div>
+
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', function () {
+        var buttons = document.querySelectorAll('#gallery-filters .filter-btn');
+        var items = document.querySelectorAll('#gallery-grid .gallery-item');
+
+        buttons.forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            buttons.forEach(function (b) {
+              b.classList.remove('bg-stone-900', 'text-white', 'shadow-sm');
+              b.classList.add('bg-stone-100', 'text-stone-700');
+            });
+            btn.classList.add('bg-stone-900', 'text-white', 'shadow-sm');
+            btn.classList.remove('bg-stone-100', 'text-stone-700');
+
+            var filter = btn.getAttribute('data-filter') || 'all';
+            var allowed = filter.split(',');
+
+            items.forEach(function (item) {
+              var cat = item.getAttribute('data-category');
+              if (filter === 'all' || allowed.indexOf(cat) !== -1) {
+                item.classList.remove('hidden');
+              } else {
+                item.classList.add('hidden');
+              }
+            });
+          });
+        });
+      });
+    </script>
 
     <!-- Amenities Grid -->
     <div id="amenities" class="pt-8">

@@ -65,7 +65,7 @@ export interface SiteConfig {
     url: string;
     alt: string;
     featured?: boolean;
-    category?: 'exterior' | 'bedroom' | 'pool' | 'living' | 'dining';
+    category?: 'exterior' | 'bedroom' | 'pool' | 'living' | 'dining' | 'bathroom' | 'kitchen';
   }>;
   amenities: Amenity[];
   reviews: Review[];
@@ -124,39 +124,117 @@ export const siteConfig: SiteConfig = {
   photos: [
     {
       url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/88a240f4-9c27-4eda-923a-af734aea5a49.jpeg?im_w=1200',
-      alt: 'River Edge Villa exterior view with private swimming pool and deck',
+      alt: 'River Edge Villa private swimming pool with open sky and mountain backdrop',
       featured: true,
       category: 'pool',
     },
     {
       url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/ff62e3cd-1a2e-4e0c-a698-15b90a9d661c.png?im_w=1200',
-      alt: 'Private swimming pool with mountain and river backdrop',
-      featured: false,
-      category: 'exterior',
-    },
-    {
-      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/47d6ad20-004d-49f9-8a6e-ca5e5769bcbb.png?im_w=1200',
-      alt: 'Luxury air-conditioned bedroom with king-size bed',
+      alt: 'Bedroom 1 with comfortable king bed and air conditioning',
       featured: false,
       category: 'bedroom',
     },
     {
       url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/93f604d8-4b67-453b-a34d-db236973e529.png?im_w=1200',
-      alt: 'Second master bedroom with attached bathroom and scenic window',
+      alt: 'Bedroom 2 with king bed and ambient lighting',
       featured: false,
       category: 'bedroom',
     },
     {
-      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/1120590c-cc81-4507-bdcb-93ed5dc01524.png?im_w=1200',
-      alt: 'Spacious open-concept living hall and entertainment area with TV',
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/47d6ad20-004d-49f9-8a6e-ca5e5769bcbb.png?im_w=1200',
+      alt: 'Bedroom 2 spacious interior with window view',
       featured: false,
-      category: 'living',
+      category: 'bedroom',
     },
     {
       url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/b53efeed-ca6a-45b0-b5a0-6799ae2c9737.jpeg?im_w=1200',
-      alt: 'Third plush bedroom suite accommodating family and groups',
+      alt: 'Bedroom 3 with plush king bed and tranquil garden outlook',
       featured: false,
       category: 'bedroom',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/22555960-c16c-4a90-8918-1f988387c842.png?im_w=1200',
+      alt: 'Full bathroom 1 with modern sanitary fittings and rain shower',
+      featured: false,
+      category: 'bathroom',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/aef01805-02b6-4dfa-97c1-b68c0b6c3b2c.jpeg?im_w=1200',
+      alt: 'Full bathroom 2 with hot water geyser and clean amenities',
+      featured: false,
+      category: 'bathroom',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/ad66281c-6dbb-40fe-b4b3-160ce0bb4ca8.jpeg?im_w=1200',
+      alt: 'Full bathroom 3 ensuite with premium fixtures',
+      featured: false,
+      category: 'bathroom',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/35eebe78-c387-4b9c-ba86-56432b51791f.png?im_w=1200',
+      alt: 'Kitchenette counter with refrigerator and microwave',
+      featured: false,
+      category: 'kitchen',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/8e216b4b-9561-46a8-bcad-1f6815e66636.png?im_w=1200',
+      alt: 'Kitchenette equipped with cookware, kettle, and dining setup',
+      featured: false,
+      category: 'kitchen',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/55899c60-34be-41cb-8b79-80763fbad90d.png?im_w=1200',
+      alt: 'Kitchenette area view with storage cabinets',
+      featured: false,
+      category: 'kitchen',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/1910764f-8882-4f18-b735-235ccb67393a.jpeg?im_w=1200',
+      alt: 'Kitchenette dining utensils and preparation counter',
+      featured: false,
+      category: 'kitchen',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/1120590c-cc81-4507-bdcb-93ed5dc01524.png?im_w=1200',
+      alt: 'Swimming pool side deck with outdoor loungers',
+      featured: false,
+      category: 'pool',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/ae11459b-93a6-4c17-a207-cb3f78139cc9.png?im_w=1200',
+      alt: 'Villa exterior view across private landscaped garden lawns',
+      featured: false,
+      category: 'exterior',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/bd6679fa-8b84-4bc6-9580-35a7262a42b5.jpeg?im_w=1200',
+      alt: 'Scenic river edge natural landscape adjacent to property',
+      featured: false,
+      category: 'exterior',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/82499168-a2a9-46fd-925a-0df7ca717564.jpeg?im_w=1200',
+      alt: 'Spacious outdoor patio with shaded sit-out furniture',
+      featured: false,
+      category: 'exterior',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/a3e91784-d188-4b4d-8872-696f18e03b6b.jpeg?im_w=1200',
+      alt: 'Panoramic mountain and valley view from villa premises',
+      featured: false,
+      category: 'exterior',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/b8935beb-5d7e-45e8-b14d-7e15b76d388d.jpeg?im_w=1200',
+      alt: 'Evening illuminated pool deck and cozy outdoor vibe',
+      featured: false,
+      category: 'pool',
+    },
+    {
+      url: 'https://a0.muscache.com/im/pictures/hosting/Hosting-1543628483898367663/original/a3dc0f67-0691-4b59-8f5a-24d1f96c8587.png?im_w=1200',
+      alt: 'Villa entrance and gated private parking driveway',
+      featured: false,
+      category: 'exterior',
     },
   ],
   amenities: [
