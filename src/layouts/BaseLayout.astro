@@ -10,11 +10,12 @@ interface Props {
 const {
   title = `${siteConfig.name} | Direct Booking & Official Host Website`,
   description = siteConfig.description,
-  ogImage = '/images/hero-river.jpg',
+  ogImage = siteConfig.photos[0]?.url || '',
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
-const ogImageUrl = new URL(ogImage, siteConfig.url).toString();
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || siteConfig.url);
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site || siteConfig.url).toString();
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!doctype html>
@@ -22,7 +23,7 @@ const ogImageUrl = new URL(ogImage, siteConfig.url).toString();
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}/favicon.svg`} />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
 
@@ -51,7 +52,7 @@ const ogImageUrl = new URL(ogImage, siteConfig.url).toString();
   <body class="bg-stone-50 text-stone-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-16 md:pb-0">
     <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2 group">
+        <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 group">
           <span class="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 group-hover:text-brand-600 transition">
             {siteConfig.name}
           </span>
