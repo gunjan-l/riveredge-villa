@@ -47,7 +47,7 @@ const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
     </div>
 
     <!-- Gallery Filter Tabs -->
-    <div class="flex flex-wrap items-center justify-center gap-2 mb-8" id="gallery-filters">
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-10" id="gallery-filters">
       <button
         type="button"
         data-filter="all"
@@ -57,10 +57,10 @@ const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
       </button>
       <button
         type="button"
-        data-filter="pool,exterior"
+        data-filter="pool"
         class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
       >
-        Pool & Outdoors
+        Swimming Pool
       </button>
       <button
         type="button"
@@ -68,6 +68,20 @@ const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
         class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
       >
         Bedrooms (3)
+      </button>
+      <button
+        type="button"
+        data-filter="living,dining"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Living & Dining
+      </button>
+      <button
+        type="button"
+        data-filter="exterior"
+        class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition bg-stone-100 text-stone-700 hover:bg-stone-200"
+      >
+        Lawn & Outdoors
       </button>
       <button
         type="button"
@@ -86,29 +100,43 @@ const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
     </div>
 
     <!-- Photo Gallery Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-16" id="gallery-grid">
-      {siteConfig.photos.map((photo, index) => (
-        <div
-          data-category={photo.category}
-          class="gallery-item relative group overflow-hidden rounded-2xl bg-stone-100 shadow-sm"
-        >
-          <img
-            src={photo.url}
-            alt={photo.alt}
-            loading={index < 3 ? 'eager' : 'lazy'}
-            class="w-full h-64 sm:h-72 object-cover transition duration-500 group-hover:scale-105"
-            onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-4">
-            <span class="text-[11px] uppercase tracking-wider font-bold text-emerald-400 mb-0.5">
-              {photo.category}
-            </span>
-            <span class="text-white text-xs sm:text-sm font-medium line-clamp-2">
-              {photo.alt}
-            </span>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16" id="gallery-grid">
+      {siteConfig.photos.map((photo, index) => {
+        const parts = photo.alt.split(' – ');
+        const title = parts[0];
+        const desc = parts.slice(1).join(' – ');
+        return (
+          <div
+            data-category={photo.category}
+            class="gallery-item group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-md transition duration-300 flex flex-col"
+          >
+            <div class="relative overflow-hidden aspect-[4/3] bg-stone-100">
+              <img
+                src={photo.url}
+                alt={photo.alt}
+                loading={index < 3 ? 'eager' : 'lazy'}
+                class="w-full h-full object-cover transition duration-500 group-hover:scale-105"
+                onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'"
+              />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-emerald-300">
+                {photo.category}
+              </span>
+            </div>
+            <div class="p-4 flex-1 flex flex-col justify-between bg-white border-t border-stone-100">
+              <div>
+                <h4 class="text-sm font-bold text-stone-900 group-hover:text-brand-600 transition">
+                  {title}
+                </h4>
+                {desc && (
+                  <p class="text-xs text-stone-600 leading-relaxed mt-1">
+                    {desc}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
 
     <script is:inline>
