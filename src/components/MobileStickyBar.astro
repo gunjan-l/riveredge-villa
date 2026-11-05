@@ -1,0 +1,34 @@
+---
+import { siteConfig } from '../site.config';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+
+const directUrl = buildWhatsAppUrl(siteConfig.contact.whatsappNumber, {
+  hostName: siteConfig.contact.hostName,
+});
+---
+
+<aside
+  class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-stone-200 px-4 py-3 shadow-2xl flex items-center justify-between gap-3"
+  aria-label="Mobile direct booking inquiry bar"
+>
+  <div>
+    <span class="text-[11px] font-bold text-emerald-600 block leading-tight">Direct Host Rate</span>
+    <span class="text-base font-extrabold text-stone-900">
+      {siteConfig.pricing.currencySymbol}{siteConfig.pricing.baseRatePerNight.toLocaleString('en-IN')}
+      <span class="text-xs font-normal text-stone-500">/night</span>
+    </span>
+  </div>
+
+  <a
+    href={directUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    data-ga-cta="mobile_sticky_whatsapp"
+    class="flex-1 max-w-[200px] inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-md text-sm transition"
+  >
+    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.127-.518-1.724-.713-2.827-2.47-2.913-2.584-.086-.115-.696-.927-.696-1.768 0-.841.44-1.254.596-1.426.156-.172.34-.216.455-.216.115 0 .23 0 .33.006.106.005.25.04.385.367.144.348.49 1.196.533 1.282.043.086.072.187.014.302-.058.115-.087.187-.173.287-.086.101-.182.226-.26.303-.087.086-.177.18-.076.353.101.173.45 1.742 1.745 2.197.354.124.56.102.72-.083.201-.23.864-1.006.864-1.006.13-.158.26-.13.433-.072.173.058 1.096.517 1.284.61.187.094.312.14.358.217.046.077.046.446-.098.851z"/>
+    </svg>
+    <span>Chat with Host</span>
+  </a>
+</aside>

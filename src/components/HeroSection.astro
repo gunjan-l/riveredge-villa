@@ -1,0 +1,91 @@
+---
+import { siteConfig } from '../site.config';
+import WhatsAppInquiryWidget from './WhatsAppInquiryWidget.astro';
+
+const basePrice = siteConfig.pricing.baseRatePerNight;
+const airbnbMarkupPercent = siteConfig.pricing.airbnbCommissionPercent;
+const airbnbPrice = Math.round(basePrice * (1 + airbnbMarkupPercent / 100));
+const savingsPerNight = airbnbPrice - basePrice;
+---
+
+<section id="overview" class="relative pt-8 pb-16 lg:pt-16 lg:pb-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <!-- Left Column: Copy, Rating Badge & Savings -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span>Official Host Direct Website • Skip 18% OTA Fees</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 tracking-tight leading-[1.15]">
+          Book {siteConfig.name} <span class="text-brand-600">Direct with Host</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-stone-600 leading-relaxed max-w-2xl">
+          {siteConfig.headline}. Avoid high platform markups and communicate directly with property owners {siteConfig.contact.hostName}.
+        </p>
+
+        <!-- Trust Badges -->
+        <div class="flex flex-wrap items-center gap-4 sm:gap-6 pt-2">
+          <div class="flex items-center gap-2 bg-stone-100 px-3 py-2 rounded-lg border border-stone-200">
+            <span class="text-amber-500 text-lg font-bold">★ {siteConfig.contact.airbnbRating}</span>
+            <span class="text-xs text-stone-700 font-medium">Airbnb Superhost ({siteConfig.contact.airbnbReviewCount} Reviews)</span>
+          </div>
+          <div class="flex items-center gap-2 bg-stone-100 px-3 py-2 rounded-lg border border-stone-200">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span class="text-xs text-stone-700 font-medium">100% Verified Identity</span>
+          </div>
+          <div class="flex items-center gap-2 bg-stone-100 px-3 py-2 rounded-lg border border-stone-200">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-xs text-stone-700 font-medium">Instant WhatsApp Confirmation</span>
+          </div>
+        </div>
+
+        <!-- Direct Booking vs Airbnb Savings Card -->
+        <div id="pricing" class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-base font-bold text-stone-900 flex items-center gap-2">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>Why Book Direct? Save ~{siteConfig.pricing.airbnbCommissionPercent}%</span>
+            </h3>
+            <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-600 text-white rounded-full">
+              Save {siteConfig.pricing.currencySymbol}{savingsPerNight.toLocaleString('en-IN')}/night
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="bg-white/80 p-3 rounded-xl border border-emerald-100">
+              <p class="text-xs text-stone-500 font-medium">Airbnb / OTA Rate</p>
+              <p class="text-lg font-bold text-stone-500 line-through">
+                {siteConfig.pricing.currencySymbol}{airbnbPrice.toLocaleString('en-IN')}
+              </p>
+              <p class="text-xs text-red-500 mt-0.5">Includes ~18% platform fees</p>
+            </div>
+            <div class="bg-white p-3 rounded-xl border-2 border-emerald-500 shadow-sm">
+              <p class="text-xs text-emerald-700 font-bold">Direct Host Rate</p>
+              <p class="text-lg font-extrabold text-emerald-600">
+                {siteConfig.pricing.currencySymbol}{basePrice.toLocaleString('en-IN')}
+              </p>
+              <p class="text-xs text-emerald-700 font-medium mt-0.5">Zero platform commission</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Widget -->
+      <div class="lg:col-span-5">
+        <WhatsAppInquiryWidget />
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+---
+import { siteConfig } from '../site.config';
+
+const specs = [
+  { label: 'Bedrooms', value: `${siteConfig.specs.bedrooms} Ensuite`, icon: 'bed' },
+  { label: 'Bathrooms', value: `${siteConfig.specs.bathrooms} Luxury`, icon: 'bath' },
+  { label: 'Guests', value: `Up to ${siteConfig.specs.maxGuests}`, icon: 'users' },
+  { label: 'Villa Area', value: `${siteConfig.specs.propertySizeSqFt.toLocaleString()} sq.ft`, icon: 'home' },
+];
+
+const categoryLabels: Record<string, string> = {
+  outdoor: 'Outdoor & Riverfront',
+  comfort: 'Comfort & Utilities',
+  kitchen: 'Kitchen & Dining',
+  hospitality: 'Services & Staff',
+};
+
+const categorizedAmenities = siteConfig.amenities.reduce((acc, item) => {
+  if (!acc[item.category]) acc[item.category] = [];
+  acc[item.category].push(item);
+  return acc;
+}, {} as Record<string, typeof siteConfig.amenities>);
+---
+
+<section id="gallery" class="py-16 bg-white border-y border-stone-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Heading -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Property Showcase</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-stone-900 mt-2">
+        Scenic Riverside Luxury Designed for Groups & Families
+      </h2>
+      <p class="text-stone-600 mt-3 text-base sm:text-lg">
+        Explore 5,500 sq.ft of private waterfront lawns, sparkling swimming pool, and stylish air-conditioned bedrooms.
+      </p>
+    </div>
+
+    <!-- Quick Spec Badges -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+      {specs.map((spec) => (
+        <div class="bg-stone-50 border border-stone-200 rounded-xl p-4 text-center hover:border-brand-500 transition">
+          <p class="text-2xl font-extrabold text-stone-900">{spec.value}</p>
+          <p class="text-xs font-semibold text-stone-500 uppercase tracking-wider mt-1">{spec.label}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Photo Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-16">
+      {siteConfig.photos.map((photo, index) => (
+        <div class={`relative group overflow-hidden rounded-2xl bg-stone-100 ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}`}>
+          <img
+            src={photo.url}
+            alt={photo.alt}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            class="w-full h-64 sm:h-80 md:h-full object-cover transition duration-500 group-hover:scale-105"
+            onerror="this.src='https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-4">
+            <span class="text-white text-xs sm:text-sm font-medium">{photo.alt}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Amenities Grid -->
+    <div id="amenities" class="pt-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">Everything Included</span>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-stone-900 mt-1">Villa Amenities & Comforts</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {Object.entries(categorizedAmenities).map(([catKey, items]) => (
+          <div class="bg-stone-50 rounded-2xl p-6 border border-stone-200">
+            <h4 class="text-sm font-bold text-stone-900 uppercase tracking-wider mb-4 border-b border-stone-200 pb-2">
+              {categoryLabels[catKey] || catKey}
+            </h4>
+            <ul class="space-y-3">
+              {items.map((item) => (
+                <li class="flex items-start gap-3">
+                  <div class="w-5 h-5 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span class="text-sm font-semibold text-stone-900 block leading-tight">{item.name}</span>
+                    {item.description && (
+                      <span class="text-xs text-stone-500 block mt-0.5 leading-snug">{item.description}</span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

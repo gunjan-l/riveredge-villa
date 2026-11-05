@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import GalleryAndAmenities from '../components/GalleryAndAmenities.astro';
+import LocationReviewsFaq from '../components/LocationReviewsFaq.astro';
+import MobileStickyBar from '../components/MobileStickyBar.astro';
+import { getStructuredData } from '../lib/seo';
+
+const structuredData = getStructuredData();
+// Force reload trigger
+---
+
+<BaseLayout>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
+
+  <HeroSection />
+  <GalleryAndAmenities />
+  <LocationReviewsFaq />
+  <MobileStickyBar />
+</BaseLayout>

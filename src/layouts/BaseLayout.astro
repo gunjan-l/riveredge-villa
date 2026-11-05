@@ -1,0 +1,154 @@
+---
+import { siteConfig } from '../site.config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = `${siteConfig.name} | Direct Booking & Official Host Website`,
+  description = siteConfig.description,
+  ogImage = '/images/hero-river.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, siteConfig.url);
+const ogImageUrl = new URL(ogImage, siteConfig.url).toString();
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Riveredge Villa, Riveredge Villa Karjat, Riveredge Villa Airbnb, Karjat villa direct booking, private pool villa Pej river" />
+    <meta name="author" content={siteConfig.contact.hostName} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={ogImageUrl} />
+
+    <slot name="head" />
+  </head>
+  <body class="bg-stone-50 text-stone-900 font-sans antialiased selection:bg-brand-500 selection:text-white pb-16 md:pb-0">
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 group">
+          <span class="text-xl sm:text-2xl font-bold tracking-tight text-stone-900 group-hover:text-brand-600 transition">
+            {siteConfig.name}
+          </span>
+          <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800">
+            ★ {siteConfig.contact.airbnbRating} Superhost
+          </span>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-stone-600">
+          <a href="#overview" class="hover:text-stone-900 transition">Overview</a>
+          <a href="#pricing" class="hover:text-stone-900 transition">Direct Savings</a>
+          <a href="#gallery" class="hover:text-stone-900 transition">Gallery</a>
+          <a href="#amenities" class="hover:text-stone-900 transition">Amenities</a>
+          <a href="#location" class="hover:text-stone-900 transition">Location</a>
+          <a href="#faq" class="hover:text-stone-900 transition">FAQ</a>
+        </nav>
+
+        <a
+          href={`https://wa.me/${siteConfig.contact.whatsappNumber}?text=Hi%20${encodeURIComponent(siteConfig.contact.hostName)}%2C%20I%20am%20interested%20in%20Riveredge%20Villa.`}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-ga-cta="header_whatsapp"
+          class="inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm px-4 py-2 rounded-lg shadow-sm transition"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.074-2.127-.518-1.724-.713-2.827-2.47-2.913-2.584-.086-.115-.696-.927-.696-1.768 0-.841.44-1.254.596-1.426.156-.172.34-.216.455-.216.115 0 .23 0 .33.006.106.005.25.04.385.367.144.348.49 1.196.533 1.282.043.086.072.187.014.302-.058.115-.087.187-.173.287-.086.101-.182.226-.26.303-.087.086-.177.18-.076.353.101.173.45 1.742 1.745 2.197.354.124.56.102.72-.083.201-.23.864-1.006.864-1.006.13-.158.26-.13.433-.072.173.058 1.096.517 1.284.61.187.094.312.14.358.217.046.077.046.446-.098.851z"/>
+          </svg>
+          <span class="hidden sm:inline">Chat with Host</span>
+          <span class="sm:hidden">WhatsApp</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="bg-stone-900 text-stone-300 py-12 border-t border-stone-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-white text-lg font-bold mb-2">{siteConfig.name}</h3>
+          <p class="text-sm text-stone-400 mb-4">{siteConfig.tagline}</p>
+          <p class="text-xs text-stone-500 leading-relaxed">
+            Direct host booking platform. Avoid OTA commissions and guarantee lowest rate directly with property owner.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#overview" class="hover:text-white transition">Villa Overview</a></li>
+            <li><a href="#pricing" class="hover:text-white transition">Direct vs OTA Savings</a></li>
+            <li><a href="#gallery" class="hover:text-white transition">Photo Gallery</a></li>
+            <li><a href="#amenities" class="hover:text-white transition">Amenities</a></li>
+            <li><a href="#location" class="hover:text-white transition">Location & Directions</a></li>
+            <li><a href="#faq" class="hover:text-white transition">FAQs & Policies</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-white font-semibold text-sm uppercase tracking-wider mb-3">Host Contact</h4>
+          <p class="text-sm text-stone-300 mb-1">Host: {siteConfig.contact.hostName}</p>
+          <p class="text-sm text-stone-300 mb-1">WhatsApp: {siteConfig.contact.displayPhone}</p>
+          <p class="text-sm text-stone-300 mb-4">Email: {siteConfig.contact.email}</p>
+          <p class="text-xs text-stone-500">
+            {siteConfig.location.address}, {siteConfig.location.city}, {siteConfig.location.state} - {siteConfig.location.postalCode}
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+        <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
+        <p>Direct Booking Guarantee • 100% Verified Host • Zero Booking Fees</p>
+      </div>
+    </footer>
+
+    <!-- Google Analytics 4 WhatsApp Event Tracking -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var target = e.target.closest('[data-ga-cta]');
+        if (target) {
+          var ctaName = target.getAttribute('data-ga-cta');
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'whatsapp_click', {
+              event_category: 'conversion',
+              event_label: ctaName,
+              value: 1,
+            });
+          }
+          if (window.dataLayer && Array.isArray(window.dataLayer)) {
+            window.dataLayer.push({
+              event: 'whatsapp_click',
+              cta: ctaName,
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
