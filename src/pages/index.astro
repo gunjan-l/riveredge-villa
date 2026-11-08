@@ -4,15 +4,16 @@ import HeroSection from '../components/HeroSection.astro';
 import GalleryAndAmenities from '../components/GalleryAndAmenities.astro';
 import LocationReviewsFaq from '../components/LocationReviewsFaq.astro';
 import MobileStickyBar from '../components/MobileStickyBar.astro';
-import { getStructuredData } from '../lib/seo';
+import { getStructuredData, getFaqStructuredData } from '../lib/seo';
 
 const structuredData = getStructuredData();
-// Force reload trigger
+const faqStructuredData = getFaqStructuredData();
 ---
 
 <BaseLayout>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)} />
   </Fragment>
 
   <HeroSection />

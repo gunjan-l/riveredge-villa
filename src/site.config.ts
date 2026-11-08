@@ -296,9 +296,9 @@ export const siteConfig: SiteConfig = {
         'Standard check-in is 1:00 PM and check-out is 11:00 AM. Flexible check-in/out can be requested via WhatsApp subject to previous guest departures.',
     },
     {
-      question: 'Is outside food allowed or can cook be arranged?',
+      question: 'Is outside food allowed or can we cook?',
       answer:
-        'Yes! You can cook in the fully equipped kitchen, order from popular Lonavala restaurants via Swiggy/Zomato, or request local meal packages through the caretaker.',
+        'Yes! You can cook in the fully equipped kitchen, or order from popular Lonavala restaurants via Swiggy/Zomato.',
     },
   ],
 };

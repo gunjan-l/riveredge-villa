@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { getStructuredData } from './seo';
+import { getStructuredData, getFaqStructuredData } from './seo';
 import { siteConfig } from '../site.config';
 
 describe('SEO Structured Data Generator', () => {
@@ -10,6 +10,7 @@ describe('SEO Structured Data Generator', () => {
     expect(data['@type']).toContain('LodgingBusiness');
     expect(data['@type']).toContain('VacationRental');
     expect(data.name).toBe(siteConfig.name);
+    expect(data.alternateName).toContain('Riveredge Villa');
     expect(data.description).toBe(siteConfig.description);
     expect(data.url).toBe(siteConfig.url);
     expect(data.telephone).toBe(siteConfig.contact.displayPhone);
@@ -41,5 +42,17 @@ describe('SEO Structured Data Generator', () => {
     expect(data.containsPlace.numberOfBathroomsTotal).toBe(siteConfig.specs.bathrooms);
     expect(data.containsPlace.occupancy.maxValue).toBe(siteConfig.specs.maxGuests);
     expect(data.amenityFeature.length).toBe(siteConfig.amenities.length);
+  });
+
+  it('generates valid Schema.org FAQPage structured data', () => {
+    const faqData = getFaqStructuredData();
+
+    expect(faqData['@context']).toBe('https://schema.org');
+    expect(faqData['@type']).toBe('FAQPage');
+    expect(faqData.mainEntity.length).toBe(siteConfig.faqs.length);
+    expect(faqData.mainEntity[0]['@type']).toBe('Question');
+    expect(faqData.mainEntity[0].name).toBe(siteConfig.faqs[0].question);
+    expect(faqData.mainEntity[0].acceptedAnswer['@type']).toBe('Answer');
+    expect(faqData.mainEntity[0].acceptedAnswer.text).toBe(siteConfig.faqs[0].answer);
   });
 });

@@ -1,8 +1,13 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
+
+const site = process.env.SITE_URL || 'https://gunjan-l.github.io';
+const base = process.env.BASE_PATH ?? '/riveredge-villa';
 
 export default defineConfig({
-  site: 'https://gunjan-l.github.io',
-  base: '/riveredge-villa',
-  integrations: [tailwind()],
+  site,
+  base,
+  integrations: [tailwind(), sitemap()],
 });
+

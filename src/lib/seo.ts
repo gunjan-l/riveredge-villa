@@ -9,6 +9,7 @@ export function getStructuredData() {
     '@type': ['LodgingBusiness', 'VacationRental'],
     '@id': `${siteConfig.url}/#lodging`,
     name: siteConfig.name,
+    alternateName: ['Riveredge Villa', 'River Edge Villa Lonavala', 'Riveredge Villa Lonavala'],
     description: siteConfig.description,
     url: siteConfig.url,
     telephone: siteConfig.contact.displayPhone,
@@ -53,3 +54,22 @@ export function getStructuredData() {
     })),
   };
 }
+
+/**
+ * Generates Schema.org FAQPage structured data object for search rich snippets
+ */
+export function getFaqStructuredData() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: siteConfig.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+}
+
